@@ -5,3 +5,5 @@ u need ask me how to start this
 use this buildpack http://github.com/heroku/heroku-buildpack-c.git to compile on heroku
 
 when u dont know anything anything ask me on discord @mathias377#3326
+
+this will be updated :)
