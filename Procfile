@@ -1,0 +1,1 @@
+web: ./out $PORT passformod passforadmin

@@ -1,0 +1,23 @@
+<h1 style=\"text-align:center; color: #66ffcc;\">mathias377 OWOP</h1>
+<h2 style=\"text-align:center; color: #66ffcc;\">Rules:</h2>
+<ol style=\"color: #80b3ff;\">
+  <li>Do not cheat</li>
+  <li>Do not spoil/destroy the work of others</li>
+  <li>Do not use scripts/bugs</li>
+  <li>There is owop to discord bot</li>
+  <li>Bots allowed but for Owners unlimited, Admins 20, Mods 15 and for Players 10</li>
+  <li>(For admins) Dont clear images and dont fuck mathias377</li>
+  <li>Hackers and fukcers will be banned</li>
+  <li>For more rules go to my discord</li>
+</ol>
+<br>
+<li style=\"color: #ff0000;\">My discord mathias377#3326</li>
+<br>
+<a class=\"btn btn-primary\" href=https://discord.gg/eBtPYp7 target=_blank>my cursors io hack discord server</a>
+<br>
+<a class=\"btn btn-primary\" href=https://discord.gg/p6UuZCq target=_blank>my owop discord server</a>
+<br>
+<a class=\"btn btn-primary\" href=https://owoppa.netlify.com/changelog target=_blank>my owop changelog</a>
+<br>
+<li style=\"color: #ff0000;\">Thanks to Bop It Freak for showing me how to host owop server. Bop It's Discord: Bop It Freak#8512</li>
+<br>
