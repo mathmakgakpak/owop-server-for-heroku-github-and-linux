@@ -12,9 +12,9 @@ Commands::Commands(Server * const sv) {
 		//{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"modlogin", std::bind(Commands::modlogin, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"adminlogin", std::bind(Commands::adminlogin, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"tp", std::bind(Commands::teleport, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"tp", std::bind(Commands::teleport, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)}
 	};
 	
@@ -28,11 +28,11 @@ Commands::Commands(Server * const sv) {
 		//{"setrank", std::bind(Commands::setrank, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"whois", std::bind(Commands::whois, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"mute", std::bind(Commands::mute, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"restrict", std::bind(Commands::restrict, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		//{"kick", std::bind(Commands::kick, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		{"kick", std::bind(Commands::kick, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"lock", std::bind(Commands::lock, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)}
 	};
@@ -49,10 +49,9 @@ Commands::Commands(Server * const sv) {
 		{"kickall", std::bind(Commands::kickall, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"setprop", std::bind(Commands::setprop, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"getprop", std::bind(Commands::getprop, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"mute", std::bind(Commands::mute, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"restrict", std::bind(Commands::restrict, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"kick", std::bind(Commands::kick, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"lock", std::bind(Commands::lock, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"reload", std::bind(Commands::reload, sv, this, std::placeholders::_1, std::placeholders::_2)},
@@ -63,6 +62,7 @@ Commands::Commands(Server * const sv) {
 		{"doas", std::bind(Commands::doas, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"broadcast", std::bind(Commands::broadcast, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"totalonline", std::bind(Commands::totalonline, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"tellraw", std::bind(Commands::tellraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
     {"dev", std::bind(Commands::dev, sv, this, std::placeholders::_1, std::placeholders::_2)}
