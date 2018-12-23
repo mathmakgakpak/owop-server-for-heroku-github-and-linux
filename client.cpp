@@ -14,7 +14,7 @@ Client::Client(const uint32_t id, uWS::WebSocket<uWS::SERVER> ws, World * const 
 		  handledelete(true),
 		  rank(1),
 		  stealthadmin(false),
-		  suspicious(si->origin != "http://ourworldofpixels.com"),
+		  suspicious(si->origin != "https://owoppa.netlify.com"),
 		  compressionEnabled(false),
 		  pos({0, 0, 0, 0, 0, 0}),
 		  lastclr({0, 0, 0}),
@@ -44,19 +44,19 @@ void Client::get_chunk(const int32_t x, const int32_t y) const {
 }
 
 void Client::put_px(const int32_t x, const int32_t y, const RGB clr) {
-		
+
 		uint32_t distx = (x >> 4) - (pos.x >> 8); distx *= distx;
 		uint32_t disty = (y >> 4) - (pos.y >> 8); disty *= disty;
 		const uint32_t dist = sqrt(distx + disty);
 		const uint32_t clrdist = ColourDistance(lastclr, clr);
-		
-			
-		
+
+
+
 		lastclr = clr;
 		wrld->put_px(x, y, clr, rank);
 		updated();
-		
-	
+
+
 }
 
 void Client::teleport(const int32_t x, const int32_t y) {
@@ -122,7 +122,7 @@ void Client::safedelete(const bool close) {
 	}
 }
 
-void Client::promote(uint8_t newrank, uint16_t prate) {		
+void Client::promote(uint8_t newrank, uint16_t prate) {
 	rank = newrank;
 	if (rank == ADMIN) {
 		tell("Server: You are now an admin. Do /help for a list of commands.");
@@ -167,7 +167,7 @@ std::string Client::get_nick() const {
 	if (nick.size()) {
 		return nick;
 	}
-	std::string e(is_mod() && !stealthadmin ? " " : is_admin() && !stealthadmin ? " " : "");
+	std::string e(is_mod() && !stealthadmin ? "" : is_admin() && !stealthadmin ? "" : "");
 	e += std::to_string(id);
 	return e;
 }

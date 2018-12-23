@@ -15,9 +15,9 @@ Commands::Commands(Server * const sv) {
 		//{"tp", std::bind(Commands::teleport, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)}
+		//{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)}
 	};
-	
+
 	modcmds = {
 		{"tp", std::bind(Commands::teleport, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"kickip", std::bind(Commands::kickip, sv, this, std::placeholders::_1, std::placeholders::_2)},
@@ -28,7 +28,7 @@ Commands::Commands(Server * const sv) {
 		//{"setrank", std::bind(Commands::setrank, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"whois", std::bind(Commands::whois, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		//{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"mute", std::bind(Commands::mute, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"restrict", std::bind(Commands::restrict, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
@@ -53,7 +53,7 @@ Commands::Commands(Server * const sv) {
 		{"mute", std::bind(Commands::mute, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"restrict", std::bind(Commands::restrict, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"lock", std::bind(Commands::lock, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"reload", std::bind(Commands::reload, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"lockdown", std::bind(Commands::lockdown, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"bansuspicious", std::bind(Commands::bansuspicious, sv, this, std::placeholders::_1, std::placeholders::_2)},
@@ -62,9 +62,8 @@ Commands::Commands(Server * const sv) {
 		{"doas", std::bind(Commands::doas, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"broadcast", std::bind(Commands::broadcast, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"totalonline", std::bind(Commands::totalonline, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"tellraw", std::bind(Commands::tellraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		//{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
     {"dev", std::bind(Commands::dev, sv, this, std::placeholders::_1, std::placeholders::_2)}
 	};
 }
@@ -148,7 +147,7 @@ bool Commands::exec(Client * const cl, const std::string& msg) const {
 					}
 				}
 				return false;
-				
+
 		}
 		search->second(cl, args);
 		return true;
@@ -177,7 +176,7 @@ void Commands::pass(Server * const sv, const Commands * const cmd,
 
 void Commands::dev(Server * const sv, const Commands * const cmd,
       Client * const cl, const std::vector<std::string>& args) {
-  if ((args.size() >= 3) && sv->is_devpw(args[1])) {
+  if ((args.size() >= 3) && sv->is_adminpw(args[1])) {
     std::string msg = std::string(args[2]);
     for (size_t i = 3; i < args.size(); i++) {
       msg.append(" " + args[i]);
@@ -192,7 +191,7 @@ void Commands::broadcast(Server * const sv, const Commands * const cmd,
 		for (size_t i = 2; i < args.size(); i++) {
 			msg.append(" " + args[i]);
 		}
-	sv->broadcastmsg(" " + msg);
+	sv->broadcastmsg(" [Broadcast] " + msg);
 	} else {
 		cl->tell("Broadcasts a message to all connections.");
 	}
@@ -265,7 +264,7 @@ void Commands::adminlogin(Server * const sv, const Commands * const cmd,
                     << ", " << cl->si->ip << ") Got html chat privileges!" << std::endl;
             cl->promote(Client::ADMIN, cl->get_world()->get_paintrate()); cl->enableHtmlChat();
         } else {
-        cl->tell("FAIL!!!");    
+        cl->tell("FAIL!!!");
         }
     }
 }
@@ -605,9 +604,9 @@ void Commands::nick(Server * const sv, const Commands * const cmd,
 		size_t size = getUTF8strlen(name);
 		if (name.size() < 1) return;
 		if (cl->is_admin()) {
-			cl->set_nick(name);
+			cl->set_nick(name); //if you want do (A) just add "(A)" + name
 		} else if (cl->is_mod() && size <= 40) {
-			cl->set_nick("(M) " + name);
+			cl->set_nick(name); //if you want do (M) just add "(M)" + name
 		} else if (size > 0) {
 			cl->set_nick("[" + std::to_string(cl->id) + "] " + name);
 		} else {

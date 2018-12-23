@@ -12,7 +12,7 @@ size_t getUTF8strlen(const std::string& str) {
 		if (x > 4) { /* Invalid unicode */
 			return SIZE_MAX;
 		}
-		
+
 		if ((str[i] & 0xC0) != 0x80) {
 			j += x == 4 ? 2 : 1;
 			x = 1;
@@ -29,7 +29,7 @@ size_t getUTF8strlen(const std::string& str) {
 
 Server::Server(const uint16_t port, const std::string& modpw, const std::string& adminpw, const std::string& devpw, const std::string& path)
 	: port(port),
-	  modpw(modpw), 
+	  modpw(modpw),
     devpw(devpw),
 	  adminpw(adminpw),
 	  path(path + "/"),
@@ -48,7 +48,7 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
   std::cout << "Developer password set to: " << devpw << "." << std::endl;
    std::cout << "Listening on port " << port << "." << std::endl;
 	readfiles();
-	
+
 	h.onConnection([this](uWS::WebSocket<uWS::SERVER> ws, uWS::UpgradeInfo ui) {
 		SocketInfo * si = new SocketInfo();
 		si->ip = ws.getAddress().address;
@@ -65,10 +65,10 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 		si->captcha_verified = {captcha_required && !(whitelisted && trusting_captcha) ? CA_WAITING : CA_OK};
 		if ((lockdown && !whitelisted) || (banned)) {
 			if (!banned) {
-				std::string m("Sorry, the server is not accepting new connections right now.");
+				std::string m("Sorry, the server is not accepting new connections right now (lockdown).");
 				ws.send(m.c_str(), m.size(), uWS::TEXT);
 			} else {
-				std::string m("You are banned. Appeal on the OWOP discord server, (https://discord.gg/fKe7gYT)");
+				std::string m("You are banned. Appeal on the OWOP discord server, (https://discord.gg/JQkTSTd)"); //yep this is your server mathias377
 				ws.send(m.c_str(), m.size(), uWS::TEXT);
 			}
 			ws.close();
@@ -90,8 +90,7 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 			ws.close();
 			return;
 		}
-		
-		/*if (!connlimiter.can_spend()) {
+		if (!connlimiter.can_spend()) {
 			switch (fastconnectaction) {
 				case 3:
 					si->captcha_verified = CA_WAITING;
@@ -103,12 +102,12 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 					ws.close();
 					break;
 			}
-		}*/
-		
+		}
+
 		uint8_t captcha_request[2] = {CAPTCHA_REQUIRED, si->captcha_verified};
 		ws.send((const char *)&captcha_request[0], sizeof(captcha_request), uWS::BINARY);
 	});
-	
+
 	h.onMessage([this, adminpw](uWS::WebSocket<uWS::SERVER> ws, const char * msg, size_t len, uWS::OpCode oc) {
 		SocketInfo * const si = ((SocketInfo *)ws.getUserData());
 		Client * const player = si->player;
@@ -120,18 +119,18 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 						player->safedelete(true);
 					}
 				} break;
-				
+
 				case 8: {
 					chunkpos_t pos = *((chunkpos_t *)msg);
 					player->get_chunk(pos.x, pos.y);
 				} break;
 
 				case 9: {
-					
+
 					chunkpos_t pos = *((chunkpos_t *)msg);
 					player->get_world()->del_chunk(pos.x, pos.y);
 				} break;
-				
+
 				case 10: {
 					if(player->get_rank() < Client::MODERATOR){
 						/* No hacks for you either */
@@ -141,12 +140,12 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 					chunkpos_t pos = *((chunkpos_t *)msg);
 					player->get_world()->setChunkProtection(pos.x, pos.y, (bool) msg[sizeof(chunkpos_t)]);
 				} break;
-				
+
 				case 11: {
 					pixupd_t pos = *((pixupd_t *)msg);
 					player->put_px(pos.x, pos.y, {pos.r, pos.g, pos.b});
 				} break;
-				
+
 				case 12: {
 					pinfo_t pos = *((pinfo_t *)msg);
 					if((pos.tool <= 2 || pos.tool == 4 || pos.tool == 5 || pos.tool == 7 || pos.tool == 8) || (player->is_admin() || player->is_mod())){
@@ -156,12 +155,17 @@ Server::Server(const uint16_t port, const std::string& modpw, const std::string&
 						player->move(pos);
 					}
 				} break;
-				
+
 				case 776: {
-					
+				if(player->is_mod() || player->is_admin()){
 					chunkpos_t pos = *((chunkpos_t *)msg);
 					player->get_world()->paste_chunk(pos.x, pos.y, msg + sizeof(chunkpos_t));
+				} else if(!player->is_mod() || !player->is_admin()) {
+					player->tell("You cheating? I don't like hackers!!!");
+					admintell("Cheating admin/mod tools IP: " + si->ip);
+					ws.close();
 				} break;
+			};
 			};
 		} else if(player && oc == uWS::TEXT && len > 1 && msg[len-1] == '\12'){
 			std::string mstr(msg, len - 1);
