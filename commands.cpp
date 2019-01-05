@@ -344,59 +344,58 @@ void Commands::getid(Server * const sv, const Commands * const cmd,
 }
 
 void Commands::teleport(Server * const sv, const Commands * const cmd,
-			Client * const cl, const std::vector<std::string>& args) {
-	if(args.size() == 3){
-		int32_t x = 0;
-		int32_t y = 0;
-		try {
-			x = stoi(args[1]);
-			y = stoi(args[2]);
-		} catch(std::invalid_argument) {
-			return;
-		} catch(std::out_of_range) {
-			return;
-		}
-		cl->tell("Server: Teleported to X: " + std::to_string(x) + ", Y: " + std::to_string(y));
-		cl->teleport(x, y);
-	} else if (args.size() == 2) {
-		uint32_t id = 0;
-		try {
-			id = stoul(args[1]);
-		} catch(std::invalid_argument) {
-			return;
-		} catch(std::out_of_range) {
-			return;
-		}
-		Client * const target = cl->get_world()->get_cli(id);
-		if(target) {
-			const pinfo_t * pos = target->get_pos();
-			cl->teleport(pos->x >> 4, pos->y >> 4);
-		}
-	} else if (args.size() == 4) {
-		return;
-		uint32_t id = 0;
-		int32_t x = 0;
-		int32_t y = 0;
-		try {
-			id = stoul(args[1]);
-			x = stoi(args[2]);
-			y = stoi(args[3]);
-		} catch(std::invalid_argument) {
-			return;
-		} catch(std::out_of_range) {
-			return;
-		}
-		Client * const target = cl->get_world()->get_cli(id);
-		if (target) {
-			pinfo_t const * const p = target->get_pos();
-			int32_t lx = p->x >> 4;
-			int32_t ly = p->y >> 4;
-			target->teleport(x, y);
-			cl->tell("Server: Teleported " + std::to_string(id) + " from " + std::to_string(lx) + ", " + std::to_string(ly) + " to " + std::to_string(x) + ", " + std::to_string(y));
-		}
-	} else {
-		cl->tell("Usage: /tp [ID] X Y or /tp ID");
-	}
+            Client * const cl, const std::vector<std::string>& args) {
+    if(args.size() == 3){
+        int32_t x = 0;
+        int32_t y = 0;
+        try {
+            x = stoi(args[1]);
+            y = stoi(args[2]);
+        } catch(std::invalid_argument) {
+            return;
+        } catch(std::out_of_range) {
+            return;
+        }
+        cl->tell("Server: Teleported to X: " + std::to_string(x) + ", Y: " + std::to_string(y));
+        cl->teleport(x, y);
+    } else if (args.size() == 2) {
+        uint32_t id = 0;
+        try {
+            id = stoul(args[1]);
+        } catch(std::invalid_argument) {
+            return;
+        } catch(std::out_of_range) {
+            return;
+        }
+        Client * const target = cl->get_world()->get_cli(id);
+        if(target) {
+            const pinfo_t * pos = target->get_pos();
+            cl->teleport(pos->x >> 4, pos->y >> 4);
+        }
+    } else if (args.size() == 4) {
+        uint32_t id = 0;
+        int32_t x = 0;
+        int32_t y = 0;
+        try {
+            id = stoul(args[1]);
+            x = stoi(args[2]);
+            y = stoi(args[3]);
+        } catch(std::invalid_argument) {
+            return;
+        } catch(std::out_of_range) {
+            return;
+        }
+        Client * const target = cl->get_world()->get_cli(id);
+        if (target) {
+            pinfo_t const * const p = target->get_pos();
+            int32_t lx = p->x >> 4;
+            int32_t ly = p->y >> 4;
+            target->teleport(x, y);
+            cl->tell("Server: Teleported " + std::to_string(id) + " from " + std::to_string(lx) + ", " + std::to_string(ly) + " to " + std::to_string(x) + ", " + std::to_string(y));
+        }
+    } else {
+        cl->tell("Usage: /tp [ID] X Y or /tp ID");
+    }
 }
 
 void Commands::restrict(Server * const sv, const Commands * const cmd,
