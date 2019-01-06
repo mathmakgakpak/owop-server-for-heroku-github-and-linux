@@ -34,4 +34,4 @@ Instructions for heroku
 
 7. Now edit client ( https://github.com/mathmakgakpak/owopppa ) ask me how to edit (mathias377)
 
-8. Push client to netlify.com and play on your owop if you want owop bot go to doing.....
+8. Push client to netlify.com and play on your owop if you want owop bot go to https://github.com/mathmakgakpak/owop-to-discord-bot-OJS
