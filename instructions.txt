@@ -1,13 +1,37 @@
-to use this owop u need use my code for owop yes accounts xd https://github.com/mathmakgakpak/owopppa
+Instructions by mathias377
 
-u need ask me how to start this
+
+to use this owop you need use my code for owop yes accountsd https://github.com/mathmakgakpak/owopppa
+
+you need ask me how to start this
 
 use this buildpack http://github.com/heroku/heroku-buildpack-c.git to compile on heroku
 
-when u dont know anything anything ask me on discord @mathias377#3326
+when you dont know anything anything ask me on discord @mathias377#3326
 
-this will be updated :)
+this will be updated :) maybe...
 
-my owop u can find here https://owoppa.netlify.com/
+my owop you can find here https://owoppa.netlify.com/
 
 to use custom worlds do https://your.site.com/#world
+
+
+
+Instructions for heroku
+
+
+1. Do account on: https://heroku.com , https://netlify.com , and https://github.com (if you dont have)
+
+2. Download heroku cli , and git
+
+3. Do heroku app. In settings (in heroku app) set buildpack to http://github.com/heroku/heroku-buildpack-c.git
+
+4. Download this repository and that https://github.com/mathmakgakpak/owopppa to your pc and unpack
+
+5. Edit world.cpp and other things
+
+6. Push server (owop-server-for-heroku-github-and-linux) to heroku using deploy inscrutions ( https://dashboard.heroku.com/apps/yourapp/deploy/heroku-git )
+
+7. Now edit client ( https://github.com/mathmakgakpak/owopppa ) ask me how to edit (mathias377)
+
+8. Push client to netlify.com and play on your owop if you want owop bot go to doing.....
