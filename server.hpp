@@ -98,12 +98,12 @@ class Database {
 public:
 	Database(const std::string& dir);
 	~Database();
-	
+
 	void save();
-	
+
 	void setChunkProtection(int32_t x, int32_t y, bool state);
 	bool getChunkProtection(int32_t x, int32_t y);
-	
+
 	std::string getProp(std::string key, std::string defval = "");
 	void setProp(std::string key, std::string value);
 
@@ -123,13 +123,13 @@ class Chunk {
 
 public:
 	bool ranked;
-	
+
 	Chunk(const int32_t cx, const int32_t cy, const uint32_t bgclr, Database * const);
 	~Chunk();
 
 	size_t compress_data_to(uint8_t (&msg)[16 * 16 * 3 + 10 + 4]);
 	uWS::WebSocket<uWS::SERVER>::PreparedMessage * get_prepd_data_msg();
-	
+
 	bool set_data(const uint8_t x, const uint8_t y, const RGB);
 	void send_data(uWS::WebSocket<uWS::SERVER>, bool compressed = false);
 	void save();
@@ -203,7 +203,7 @@ public:
 	World * get_world() const;
 	uint16_t get_penalty() const;
 	uint8_t get_rank() const;
-	
+
 	void set_stealth(bool);
 	void set_nick(const std::string&);
 	void set_pbucket(uint16_t rate, uint16_t per);
@@ -228,11 +228,11 @@ public:
 
 	World(const std::string& path, const std::string& name);
 	~World();
-	
+
 	void update_all_clients();
-	
+
 	void setChunkProtection(int32_t x, int32_t y, bool state);
-	
+
 	void reload();
 	std::string getProp(std::string key, std::string defval = "");
 	void setProp(std::string key, std::string value);
@@ -243,7 +243,7 @@ public:
 	void rm_cli(Client * const);
 	Client * get_cli(const uint32_t id) const;
 	Client * get_cli(const std::string name) const;
-	
+
 	std::set<Client *> * get_pl();
 
 	void sched_updates();
@@ -284,14 +284,15 @@ public:
 	bool exec(Client * const, const std::string& msg) const;
 
   static void dev(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
+	static void spawn(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void pass(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void modlogin(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void adminlogin(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
-	
+
 	static void getprop(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void setprop(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void reload(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
-	
+
 	static void teleport(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void stealth(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
 	static void setrank(Server * const, const Commands * const, Client * const, const std::vector<std::string>& args);
@@ -350,9 +351,9 @@ public:
 	bool instaban;
 	bool trusting_captcha;
 	uint8_t fastconnectaction;
-	
+
 	std::unordered_set<std::string> proxyquery_checking;
-	
+
 	Server(const uint16_t port, const std::string& modpw, const std::string& adminpw, const std::string& devpw, const std::string& path);
 	~Server();
 
@@ -370,28 +371,28 @@ public:
 	bool is_modpw(const std::string&);
   bool is_devpw(const std::string&);
 	uint32_t get_conns(const std::string&);
-	
+
 	void admintell(const std::string&);
-	
+
 	void kickall(World * const);
 	void kickall();
 	void kickip(const std::string&);
-	
+
 	void banip(const std::string&);
 	std::unordered_set<std::string> * getbans();
 	std::unordered_set<std::string> * getwhitelist();
 	std::unordered_set<std::string> * getblacklist();
 	void whitelistip(const std::string&);
-	
+
 	void set_max_ip_conns(uint8_t);
 	void set_captcha_protection(bool);
 	void lockdown_check();
 	void set_lockdown(bool);
 	void set_instaban(bool);
 	void set_proxycheck(bool);
-	
+
 	bool is_connected(const uWS::WebSocket<uWS::SERVER>);
-	
+
 	void writefiles();
 	void readfiles();
 };

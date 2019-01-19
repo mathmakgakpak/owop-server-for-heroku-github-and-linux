@@ -12,7 +12,7 @@ Commands::Commands(Server * const sv) {
 		//{"sayraw", std::bind(Commands::sayraw, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"modlogin", std::bind(Commands::modlogin, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		{"adminlogin", std::bind(Commands::adminlogin, sv, this, std::placeholders::_1, std::placeholders::_2)},
-		//{"tp", std::bind(Commands::teleport, sv, this, std::placeholders::_1, std::placeholders::_2)},
+		{"spawn", std::bind(Commands::spawn, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"stealth", std::bind(Commands::stealth, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"getid", std::bind(Commands::getid, sv, this, std::placeholders::_1, std::placeholders::_2)},
 		//{"ids", std::bind(Commands::ids, sv, this, std::placeholders::_1, std::placeholders::_2)}
@@ -710,6 +710,12 @@ void Commands::whitelist(Server * const sv, const Commands * const cmd,
 	} else {
 		cl->tell("Usage: /whitelist (list, clear, add, remove) [IP]");
 	}
+}
+
+void Commands::spawn(Server * const sv, const Commands * const cmd,
+            Client * const cl, const std::vector<std::string>& args) {
+    cl->teleport(0, 0);
+    cl->tell("Server: Teleported to spawn.");
 }
 
 void Commands::blacklist(Server * const sv, const Commands * const cmd,
